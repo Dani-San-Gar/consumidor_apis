@@ -11,7 +11,6 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Consumo de APIs con Flask</h1>
         
-        <!-- Formulario de búsqueda -->
         <div class="card p-4 shadow">
             <div class="row">
                 <div class="col-md-4">
@@ -28,14 +27,12 @@
             </div>
         </div>
 
-        <!-- Spinner de carga -->
         <div id="spinner" class="text-center mt-3 d-none">
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
         </div>
 
-        <!-- Resultados -->
         <div id="resultados" class="row mt-4"></div>
     </div>
 
@@ -46,7 +43,6 @@
             let resultadosDiv = document.getElementById("resultados");
             let spinner = document.getElementById("spinner");
 
-            // Mostrar spinner mientras se carga la API
             resultadosDiv.innerHTML = "";
             spinner.classList.remove("d-none");
 
@@ -54,7 +50,7 @@
                 .then(response => response.json())
                 .then(data => {
                     resultadosDiv.innerHTML = "";
-                    spinner.classList.add("d-none");  // Ocultar el spinner
+                    spinner.classList.add("d-none");  
 
                     if (data.length === 0) {
                         resultadosDiv.innerHTML = "<p class='text-center text-danger'>No se encontraron resultados.</p>";

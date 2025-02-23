@@ -6,10 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-CORS(app)
- 
-
-# Modelo de datos
+CORS(app) 
 class Datos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100))
@@ -19,7 +16,6 @@ class Datos(db.Model):
     def to_dict(self):
         return {"id": self.id, "titulo": self.titulo, "area": self.area, "categoria": self.categoria}
 
-# Inicializar la base de datos con datos de ejemplo
 with app.app_context():
     db.create_all()
     if not Datos.query.first():
@@ -34,13 +30,11 @@ with app.app_context():
         db.session.commit()
         print("Datos de ejemplo insertados.")
 
-# Ruta API para obtener datos filtrados
 @app.route('/api/datos/<area>/<categoria>', methods=['GET'])
 def obtener_datos(area, categoria):
     datos_filtrados = Datos.query.filter_by(area=area, categoria=categoria).all()
     return jsonify([dato.to_dict() for dato in datos_filtrados])
 
-# Ruta para la página principal
 @app.route('/')
 def index():
     return render_template('index.html')
